@@ -1,25 +1,7 @@
 'use client';
 
-import React, { useState, useEffect, useSyncExternalStore } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-
-// SSR-safe check for sessionStorage
-function useHasSeenPreloader() {
-  return useSyncExternalStore(
-    (callback) => {
-      window.addEventListener('storage', callback);
-      return () => window.removeEventListener('storage', callback);
-    },
-    () => {
-      try {
-        return sessionStorage.getItem('hasSeenPreloader') === 'true';
-      } catch {
-        return false;
-      }
-    },
-    () => false // server snapshot
-  );
-}
 
 // Pre-computed ambient particles
 const ambientParticles = [
@@ -44,9 +26,7 @@ const sparkParticles = [
 ];
 
 export default function Preloader() {
-  const hasSeen = useHasSeenPreloader();
-
-  const [isVisible, setIsVisible] = useState(!hasSeen);
+  const [isVisible, setIsVisible] = useState(true);
   // Development stages: 0 (init), 1 (HTML + Git), 2 (CSS + Tailwind + Wrench + Screwdriver), 3 (JS + React + Node), 4 (Complete)
   const [stage, setStage] = useState(0);
   const [statusText, setStatusText] = useState('Initializing System Architecture...');
@@ -110,7 +90,7 @@ export default function Preloader() {
     const exitTimer = setTimeout(() => {
       setIsVisible(false);
       try {
-        sessionStorage.setItem('hasSeenPreloader', 'true');
+        sessionStorage.removeItem('hasSeenPreloader');
         document.documentElement.setAttribute('data-preloader-done', 'true');
       } catch {
         // ignore

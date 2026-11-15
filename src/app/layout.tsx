@@ -84,9 +84,9 @@ export default function RootLayout({
                     document.documentElement.classList.remove('dark');
                     document.documentElement.setAttribute('data-theme', 'light');
                   }
-                  if (sessionStorage.getItem('hasSeenPreloader') === 'true') {
-                    document.documentElement.setAttribute('data-preloader-done', 'true');
-                  }
+                  try {
+                    sessionStorage.removeItem('hasSeenPreloader');
+                  } catch(e) {}
                 } catch(e) {}
               })();
             `,
