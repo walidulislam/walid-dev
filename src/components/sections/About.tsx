@@ -91,12 +91,12 @@ function Tech3DCard({ tech }: { tech: TechCardItem }) {
 export default function About() {
   return (
     <section id="about" aria-label="About Me" className="relative py-20 lg:py-28 overflow-hidden">
-      
+
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-5xl h-80 bg-purple-400/10 dark:bg-purple-600/10 blur-3xl pointer-events-none -z-10" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Heading */}
         <SectionHeading
           badge="About Me"
@@ -111,10 +111,10 @@ export default function About() {
           whileInView="animate"
           viewport={{ once: true, margin: '-60px' }}
           variants={stagger}
-          className="relative mt-28 sm:mt-32 md:mt-36 pt-24 sm:pt-28 md:pt-32 pb-10 px-6 sm:px-10 lg:px-14 rounded-3xl sm:rounded-[36px] bg-white/70 dark:bg-[#120B24]/80 border border-purple-200/80 dark:border-purple-500/20 backdrop-blur-2xl shadow-2xl shadow-purple-900/10"
+          className="relative mt-28 sm:mt-32 md:mt-36 pt-36 sm:pt-32 md:pt-36 pb-10 px-5 sm:px-10 lg:px-14 rounded-3xl sm:rounded-[36px] bg-white/70 dark:bg-[#120B24]/80 border border-purple-200/80 dark:border-purple-500/20 backdrop-blur-2xl shadow-2xl shadow-purple-900/10"
         >
           {/* Centered Avatar Breaking Through the Top Rim — Portfolio Style */}
-          <div className="absolute -top-24 sm:-top-28 md:-top-32 left-1/2 -translate-x-1/2 flex flex-col items-center z-30">
+          <div className="absolute -top-20 sm:-top-28 md:-top-32 left-1/2 -translate-x-1/2 flex flex-col items-center z-30 w-full max-w-xs">
             <div className="relative">
               {/* Subtle glow behind the image */}
               <div className="absolute inset-x-4 -bottom-4 h-24 bg-gradient-to-t from-purple-500/25 via-pink-400/15 to-transparent blur-2xl rounded-full pointer-events-none" />
@@ -122,7 +122,7 @@ export default function About() {
               {/* Professional Portrait Image — No Circle, Floating Out */}
               <motion.div
                 variants={fadeIn}
-                className="relative w-36 h-44 sm:w-44 sm:h-52 md:w-48 md:h-56 overflow-hidden rounded-2xl sm:rounded-3xl"
+                className="relative w-32 h-40 sm:w-44 sm:h-52 md:w-48 md:h-56 overflow-hidden rounded-2xl sm:rounded-3xl mx-auto shadow-xl shadow-purple-950/20"
                 style={{
                   maskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
                   WebkitMaskImage: 'linear-gradient(to bottom, black 75%, transparent 100%)',
@@ -132,7 +132,7 @@ export default function About() {
                   src="/assets/my.jpg"
                   alt="Md. Walidul Islam"
                   fill
-                  sizes="(max-width: 640px) 144px, (max-width: 768px) 176px, 192px"
+                  sizes="(max-width: 640px) 128px, (max-width: 768px) 176px, 192px"
                   className="object-cover object-top"
                   priority
                 />
@@ -141,7 +141,7 @@ export default function About() {
               {/* Speech Bubble (from Figma: "♥ Hello, internet!") */}
               <motion.div
                 variants={fadeIn}
-                className="absolute top-4 -right-20 sm:-right-24 px-3 py-1 rounded-full bg-white dark:bg-[#1B1230] border border-purple-200 dark:border-purple-500/40 shadow-lg text-[11px] font-semibold text-purple-900 dark:text-purple-200 whitespace-nowrap flex items-center gap-1.5"
+                className="absolute top-2 sm:top-4 -right-8 sm:-right-24 px-2.5 sm:px-3 py-1 rounded-full bg-white dark:bg-[#1B1230] border border-purple-200 dark:border-purple-500/40 shadow-lg text-[10px] sm:text-[11px] font-semibold text-purple-900 dark:text-purple-200 whitespace-nowrap flex items-center gap-1.5 z-10"
               >
                 <span className="text-pink-500">♥</span> Hello, internet!
               </motion.div>
@@ -153,23 +153,23 @@ export default function About() {
             </div>
 
             {/* Label below avatar (from Figma) */}
-            <div className="mt-2 text-center">
-              <span className="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-purple-900 dark:text-purple-200">
+            <div className="mt-2.5 text-center px-4">
+              <span className="text-[11px] sm:text-xs font-bold tracking-widest uppercase text-purple-900 dark:text-purple-200 block">
                 FULL STACK MERN DEVELOPER
               </span>
-              <div className="flex items-center justify-center gap-2 mt-0.5">
-                <span className="w-6 h-[1px] bg-purple-300 dark:bg-purple-700" />
-                <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-purple-300/60 font-medium">
+              <div className="flex items-center justify-center gap-2 mt-1">
+                <span className="w-5 sm:w-6 h-[1px] bg-purple-300 dark:bg-purple-700" />
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-wider text-zinc-500 dark:text-purple-300/70 font-medium whitespace-nowrap">
                   TURNING IDEAS INTO WEB EXPERIENCES
                 </span>
-                <span className="w-6 h-[1px] bg-purple-300 dark:bg-purple-700" />
+                <span className="w-5 sm:w-6 h-[1px] bg-purple-300 dark:bg-purple-700" />
               </div>
             </div>
           </div>
 
-          {/* Main Grid Content */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-12 sm:mt-14 items-center">
-            
+          {/* Main Grid Content — Spacious margin on mobile to separate from top avatar label */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mt-20 sm:mt-16 md:mt-14 items-center">
+
             {/* Left Column: Heading & Biography */}
             <motion.div variants={fadeIn} className="lg:col-span-7 flex flex-col gap-4 text-center lg:text-left">
               <div className="inline-flex items-center justify-center lg:justify-start gap-2 text-xs font-bold uppercase tracking-widest text-purple-600 dark:text-purple-400">
@@ -202,7 +202,7 @@ export default function About() {
 
             {/* Right Column: Key Focus Points & Let's Talk CTA */}
             <motion.div variants={fadeIn} className="lg:col-span-5 flex flex-col gap-4">
-              
+
               {/* Feature 1: Modern Full-Stack Engineering */}
               <motion.div
                 whileHover={{ y: -4, scale: 1.01 }}

@@ -38,9 +38,22 @@ export default function Preloader() {
   useEffect(() => {
     if (!isVisible) return;
 
+    // Ensure clean state on mount
+    document.documentElement.removeAttribute('data-preloader-done');
+
     // Prevent body scrolling while preloader is active
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
+
+    // Support mobile browser BFCache (restore from memory)
+    const handlePageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) {
+        setIsVisible(true);
+        setStage(0);
+        setProgress(0);
+      }
+    };
+    window.addEventListener('pageshow', handlePageShow);
 
     // STAGE 1 (at 550ms): HTML & Git badges zoom into the laptop screen
     const t1 = setTimeout(() => {
@@ -106,6 +119,7 @@ export default function Preloader() {
       clearTimeout(t3r);
       clearTimeout(t4);
       clearTimeout(exitTimer);
+      window.removeEventListener('pageshow', handlePageShow);
       clearInterval(progressInterval);
       document.body.style.overflow = originalOverflow;
     };
