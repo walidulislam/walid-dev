@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useEffect, useSyncExternalStore } from 'react';
-import { motion, AnimatePresence, useReducedMotion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 
 // SSR-safe check for sessionStorage
 function useHasSeenPreloader() {
@@ -45,15 +45,12 @@ const sparkParticles = [
 
 export default function Preloader() {
   const hasSeen = useHasSeenPreloader();
-  const shouldReduceMotion = useReducedMotion();
 
   const [isVisible, setIsVisible] = useState(!hasSeen);
   // Development stages: 0 (init), 1 (HTML + Git), 2 (CSS + Tailwind + Wrench + Screwdriver), 3 (JS + React + Node), 4 (Complete)
-  const [stage, setStage] = useState(shouldReduceMotion ? 4 : 0);
-  const [statusText, setStatusText] = useState(
-    shouldReduceMotion ? 'Portfolio Ready!' : 'Initializing System Architecture...'
-  );
-  const [progress, setProgress] = useState(shouldReduceMotion ? 100 : 0);
+  const [stage, setStage] = useState(0);
+  const [statusText, setStatusText] = useState('Initializing System Architecture...');
+  const [progress, setProgress] = useState(0);
 
   // Screen ripple trigger on tool impact
   const [screenRipple, setScreenRipple] = useState<'none' | 'orange' | 'purple' | 'cyan'>('none');
@@ -64,22 +61,6 @@ export default function Preloader() {
     // Prevent body scrolling while preloader is active
     const originalOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
-
-    if (shouldReduceMotion) {
-      const timer = setTimeout(() => {
-        setIsVisible(false);
-        try {
-          sessionStorage.setItem('hasSeenPreloader', 'true');
-          document.documentElement.setAttribute('data-preloader-done', 'true');
-        } catch {
-          // ignore
-        }
-      }, 500);
-      return () => {
-        clearTimeout(timer);
-        document.body.style.overflow = originalOverflow;
-      };
-    }
 
     // STAGE 1 (at 550ms): HTML & Git badges zoom into the laptop screen
     const t1 = setTimeout(() => {
@@ -148,7 +129,7 @@ export default function Preloader() {
       clearInterval(progressInterval);
       document.body.style.overflow = originalOverflow;
     };
-  }, [isVisible, shouldReduceMotion]);
+  }, [isVisible]);
 
   if (!isVisible) return null;
 
@@ -202,14 +183,10 @@ export default function Preloader() {
                   width: pt.size,
                   height: pt.size,
                 }}
-                animate={
-                  shouldReduceMotion
-                    ? {}
-                    : {
-                        y: [0, -16, 0],
-                        opacity: [0.2, 0.8, 0.2],
-                      }
-                }
+                animate={{
+                  y: [0, -16, 0],
+                  opacity: [0.2, 0.8, 0.2],
+                }}
                 transition={{
                   duration: pt.duration,
                   delay: pt.delay,
@@ -255,7 +232,7 @@ export default function Preloader() {
                   viewBox="0 0 72 44"
                   fill="none"
                   className="w-10 h-6 sm:w-16 sm:h-10 md:w-18 md:h-11 drop-shadow-md"
-                  animate={shouldReduceMotion ? {} : { y: [0, -6, 0] }}
+                  animate={{ y: [0, -6, 0] }}
                   transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
                 >
                   <path
@@ -739,13 +716,9 @@ export default function Preloader() {
               >
                 <motion.div
                   className="w-9 h-9 sm:w-12 sm:h-12 flex items-center justify-center drop-shadow-xl"
-                  animate={
-                    shouldReduceMotion
-                      ? {}
-                      : {
-                          rotate: stage >= 1 && stage < 4 ? [0, 720] : [0, 360],
-                        }
-                  }
+                  animate={{
+                    rotate: stage >= 1 && stage < 4 ? [0, 720] : [0, 360],
+                  }}
                   transition={{
                     duration: stage >= 1 && stage < 4 ? 2.5 : 6,
                     repeat: Infinity,
@@ -776,13 +749,9 @@ export default function Preloader() {
               >
                 <motion.div
                   className="w-5 h-5 sm:w-7 sm:h-7 flex items-center justify-center drop-shadow-md"
-                  animate={
-                    shouldReduceMotion
-                      ? {}
-                      : {
-                          rotate: stage >= 1 && stage < 4 ? [0, -1080] : [0, -360],
-                        }
-                  }
+                  animate={{
+                    rotate: stage >= 1 && stage < 4 ? [0, -1080] : [0, -360],
+                  }}
                   transition={{
                     duration: stage >= 1 && stage < 4 ? 2.5 : 4,
                     repeat: Infinity,
@@ -1104,7 +1073,7 @@ export default function Preloader() {
                   style={{
                     background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.5), transparent)',
                   }}
-                  animate={shouldReduceMotion ? {} : { x: ['-100%', '200%'] }}
+                  animate={{ x: ['-100%', '200%'] }}
                   transition={{ duration: 1.4, repeat: Infinity, ease: 'linear' }}
                 />
               </motion.div>
